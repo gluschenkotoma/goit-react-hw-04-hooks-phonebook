@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -39,54 +38,51 @@ const initialValues = {
   number: '',
 };
 
-class ContactForm extends Component {
-  handleSubmit = (values, { resetForm }) => {
-    this.props.onSubmit(values);
-
+const ContactForm = ({ onSubmit }) => {
+  const handleSubmit = (values, { resetForm }) => {
+    onSubmit(values);
     console.log(values);
     resetForm();
   };
 
-  render() {
-    return (
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={this.handleSubmit}
-      >
-        <Form>
+  return (
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    >
+      <Form>
+        <div>
+          <label htmlFor="name">Name</label>
           <div>
-            <label htmlFor="name">Name</label>
-            <div>
-              <Field
-                className={s.fieldInput}
-                name="name"
-                type="text"
-                placeholder="Name"
-              />
-              <FormError name="name" />
-            </div>
+            <Field
+              className={s.fieldInput}
+              name="name"
+              type="text"
+              placeholder="Name"
+            />
+            <FormError name="name" />
           </div>
+        </div>
+        <div>
+          <label htmlFor="number">Phone number:</label>
           <div>
-            <label htmlFor="number">Phone number:</label>
-            <div>
-              <Field
-                className={s.fieldInput}
-                name="number"
-                type="text"
-                placeholder="number"
-              />
-              <FormError name="number" />
-            </div>
+            <Field
+              className={s.fieldInput}
+              name="number"
+              type="text"
+              placeholder="number"
+            />
+            <FormError name="number" />
           </div>
-          <button className={s.button} type="submit">
-            Add Contact
-          </button>
-        </Form>
-      </Formik>
-    );
-  }
-}
+        </div>
+        <button className={s.button} type="submit">
+          Add Contact
+        </button>
+      </Form>
+    </Formik>
+  );
+};
 
 ContactForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
