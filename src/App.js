@@ -5,6 +5,8 @@ import ContactList from './components/ContactList';
 import ContactForm from './components/ContactForm';
 import ContactFilter from './components/ContactFilter';
 
+import { v1 as uuid } from 'uuid';
+
 const App = () => {
   const [contacts, setContacts] = useState(contactList);
   const [filter, setFilter] = useState('');
@@ -40,19 +42,19 @@ const App = () => {
   //   }
   // }
 
-  const isInContacts = () => {
-    return contacts.map(contact => contact.name.toLowerCase());
+  const isInContacts = name => {
+    return contacts.map(contact => contact.name.toLowerCase().includes(name));
     // return this.state.contacts.map(contact => contact.name.toLowerCase());
   };
 
   const addContact = data => {
     const existingNames = isInContacts();
 
-    if (existingNames.includes(data.name.toLowerCase())) {
-      alert(`${data.name} is already in contacts`);
+    if (existingNames.includes(data.toLowerCase())) {
+      alert(`${data} is already in contacts`);
     } else {
       setContacts(
-        contacts => [data, ...contacts]
+        contacts => [...contacts, { id: uuid(), data }]
         // this.setState(prevState => ({ contacts: [data, ...prevState.contacts],
       );
     }
