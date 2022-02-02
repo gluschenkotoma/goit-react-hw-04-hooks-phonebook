@@ -54,7 +54,7 @@ const App = () => {
       alert(`${data} is already in contacts`);
     } else {
       setContacts(
-        contacts => [...contacts, { id: uuid(), data }]
+        contacts => [...contacts, { id: uuid(), ...data }]
         // this.setState(prevState => ({ contacts: [data, ...prevState.contacts],
       );
     }
