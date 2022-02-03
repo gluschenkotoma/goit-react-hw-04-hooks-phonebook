@@ -46,19 +46,30 @@ const App = () => {
     return contacts.map(contact => contact.name.toLowerCase().includes(name));
     // return this.state.contacts.map(contact => contact.name.toLowerCase());
   };
+  const addContact = ({ name, number }) => {
+    const isInContacts = contacts.find(
+      contact => name.toLowerCase() === contact.name.toLowerCase()
+    );
 
-  const addContact = data => {
-    const existingNames = isInContacts();
-
-    if (existingNames.includes(data.toLowerCase())) {
-      alert(`${data} is already in contacts`);
-    } else {
-      setContacts(
-        contacts => [...contacts, { id: uuid(), ...data }]
-        // this.setState(prevState => ({ contacts: [data, ...prevState.contacts],
-      );
+    if (isInContacts) {
+      return alert(`${name} is already in contacts`);
     }
+
+    setContacts(contacts => [{ id: uuid(), name, number }, ...contacts]);
   };
+
+  // const addContact = data => {
+  //   const existingNames = isInContacts();
+
+  //   if (existingNames.includes(data.toLowerCase())) {
+  //     alert(`${data} is already in contacts`);
+  //   } else {
+  //     setContacts(
+  //       contacts => [...contacts, { id: uuid(), ...data }]
+  //       // this.setState(prevState => ({ contacts: [data, ...prevState.contacts],
+  //     );
+  //   }
+  // };
 
   const deleteContact = contactId => {
     setContacts(prev => prev.filter(contact => contact.id !== contactId));
